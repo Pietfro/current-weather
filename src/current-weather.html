@@ -2,7 +2,7 @@
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 
 <dom-module id="current-weather">
-  <link rel="import" type="css" href="../bower_components/weather-icons/css/weather-icons.css">
+  <link rel="import" type="css" href="../../weather-icons/css/weather-icons.css">
 
   <template>
     <style>
@@ -81,19 +81,13 @@
     </iron-ajax>
     <template is="dom-if" if=[[data]]>
       <div class$="[[_weatherClass(data.tempLevel)]]">
-        <template is="dom-if" if="[[name]]">
-          <div class="info">[[data.name]]</div>
-        </template>
-        <div class="weather-condition">
-          <div class="condition-icon">
-            <i class="wi {{data.icon}}"></i>
-          </div>
-          <template is="dom-if" if="[[conditiontext]]">
-            <div class="conditiontext">[[data.conditiontext]]</div>
-          </template>
-        </div>
         <div class="temperatures">
-          <div class="current"><span>[[data.currentTemp]]</span>°</div>
+            <div class="weather-condition">
+              <div class="condition-icon">
+                <i class$="wi {{data.icon}}"></i>
+              </div>
+              <div class="current"><span>[[data.currentTemp]]</span>°</div>
+            </div>
           <template is="dom-if" if="[[minmax]]">
             <div class="minmax">
               <div class="min">
@@ -140,6 +134,14 @@
             </div>
           </div>
         </template>
+        <div class="location">
+            <template is="dom-if" if="[[name]]">
+              <span class="info">[[data.name]]</span>
+            </template>
+            <template is="dom-if" if="[[conditiontext]]">
+              <span class="conditiontext">[[data.conditiontext]]</span>
+            </template>
+        </div>
       </div>
     </template>
   </template>
@@ -226,15 +228,6 @@
           tempLevel: getTempLevel(res.main.temp, this.imperial)
         };
         this.fire('current-weather-load', {weather: this.data});
-      },
-      getCurrentLocation: function(position) {
-	  this.lat = position.coords.latitude;
-	  this.lon = position.coords.longitude;
-      },
-      ready: function() {
-	  if (typeof(this.lat) == "undefined" && typeof(this.lon) == "undefined") {
-	      navigator.geolocation.getCurrentPosition(this.getCurrentLocation.bind(this));
-	  }
       }
     });
   </script>
