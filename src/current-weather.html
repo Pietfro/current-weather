@@ -79,6 +79,11 @@
                handleAs="json"
                on-response="_weatherApiResponse">
     </iron-ajax>
+    <template is="dom-if" if=[[!data]]>
+        <div class="weather-loading">
+            Fetching weather data ...
+        </div>
+    </template>
     <template is="dom-if" if=[[data]]>
       <div class$="[[_weatherClass(data.tempLevel)]]">
         <div class="temperatures">
