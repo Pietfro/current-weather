@@ -15,7 +15,6 @@
     "bower_components"
   ],
   "dependencies": {
-    "iron-ajax": "PolymerElements/iron-ajax#^1.0.0",
-    "weather-icons": "~2.0.10"
+    "iron-ajax": "PolymerElements/iron-ajax#^1.0.0"
   }
 }
